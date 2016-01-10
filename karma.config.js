@@ -23,7 +23,6 @@ module.exports = function(config) {
 
         // list of files omitted as they should be passed in at runtime
         files: [
-            'modules/grapher.js',
             'spec/**/*.js'
         ],
 
@@ -33,11 +32,11 @@ module.exports = function(config) {
 
         webpack: karmaWebpackConfig,
 
-        frameworks: ['jasmine'],
+        frameworks: ['mocha', 'chai'],
 
         // test results reporter to use
         // possible values: 'dots', 'progress', 'junit'
-        reporters: ['junit', 'progress'],
+        reporters: ['mocha', 'progress'],
 
         junitReporter: {
             useBrowserName: false,
@@ -76,8 +75,9 @@ module.exports = function(config) {
 
         plugins: [
             karmaWebpack,
-            'karma-jasmine',
-            'karma-junit-reporter',
+            'karma-mocha',
+            'karma-chai',
+            'karma-mocha-reporter',
             'karma-phantomjs-launcher'
         ]
     });
