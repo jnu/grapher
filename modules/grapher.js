@@ -22,25 +22,26 @@ var WebGLRenderer = Grapher.WebGLRenderer = require('./renderers/gl/renderer.js'
     Link = Grapher.Link = require('./helpers/link.js'),
     Node = Grapher.Node = require('./helpers/node.js'),
     Shaders = Grapher.Shaders = require('./helpers/shaders.js'),
-    u = Grapher.utils = require('./helpers/utilities.js');
+    u = Grapher.utils = require('./helpers/utilities.js'),
+    grey = [34, 34, 34, 255]; // #222222
 
 Grapher.prototype = {};
 
 /**
   * grapher.initialize
   * ------------------
-  * 
+  *
   * Initialize is called when a grapher instance is created:
-  *     
+  *
   *     var grapher = new Grapher(width, height, options);
   *
   */
 Grapher.prototype.initialize = function (o) {
   if (!o) o = {};
-  
+
   // Extend default properties with options
   this.props = u.extend({
-    color: Color.parse('#222222'),
+    color: grey,
     scale: 1,
     translate: [0, 0],
     resolution: window.devicePixelRatio || 1
@@ -91,7 +92,7 @@ Grapher.prototype.initialize = function (o) {
 /**
   * grapher.set
   * ------------------
-  * 
+  *
   * General setter for a grapher's properties.
   *
   *     grapher.set(1, 'scale');
@@ -105,7 +106,7 @@ Grapher.prototype.set = function (val, key) {
 /**
   * grapher.on
   * ------------------
-  * 
+  *
   * Add a listener to a grapher event. Only one listener can be bound to an
   * event at this time. Available events:
   *
@@ -123,7 +124,7 @@ Grapher.prototype.on = function (event, fn) {
 /**
   * grapher.off
   * ------------------
-  * 
+  *
   * Remove a listener from an event, or all listeners from an event if fn is not specified.
   */
 Grapher.prototype.off = function (event, fn) {
@@ -142,7 +143,7 @@ Grapher.prototype.off = function (event, fn) {
 /**
   * grapher.data
   * ------------------
-  * 
+  *
   * Accepts network data in the form:
   *
   *     {
@@ -164,7 +165,7 @@ Grapher.prototype.data = function (data) {
 /**
   * grapher.enter
   * ------------------
-  * 
+  *
   * Creates node and link sprites to match the number of nodes and links in the
   * data.
   */
@@ -186,7 +187,7 @@ Grapher.prototype.enter = function () {
 /**
   * grapher.exit
   * ------------------
-  * 
+  *
   * Removes node and link sprites to match the number of nodes and links in the
   * data.
   */
@@ -206,8 +207,8 @@ Grapher.prototype.exit = function () {
 /**
   * grapher.update
   * ------------------
-  * 
-  * Add nodes and/or links to the update queue by index. Passing in no arguments will 
+  *
+  * Add nodes and/or links to the update queue by index. Passing in no arguments will
   * add all nodes and links to the update queue. Node and link sprites in the update
   * queue are updated at the time of rendering.
   *
@@ -234,7 +235,7 @@ Grapher.prototype.update = function (type, start, end) {
 /**
   * grapher.updateNode
   * ------------------
-  * 
+  *
   * Add an individual node to the update queue. Optionally pass in a boolean to
   * specify whether or not to also add links connected with the node to the update queue.
   */
@@ -247,7 +248,7 @@ Grapher.prototype.updateNode = function (index, willUpdateLinks) {
 /**
   * grapher.updateLink
   * ------------------
-  * 
+  *
   * Add an individual link to the update queue.
   */
 Grapher.prototype.updateLink = function (index) {
@@ -258,7 +259,7 @@ Grapher.prototype.updateLink = function (index) {
 /**
   * grapher.clear
   * ------------------
-  * 
+  *
   * Clears the canvas and grapher data.
   */
 Grapher.prototype.clear = function () {
@@ -270,7 +271,7 @@ Grapher.prototype.clear = function () {
 /**
   * grapher.render
   * ------------------
-  * 
+  *
   * Updates each sprite and renders the network.
   */
 Grapher.prototype.render = function () {
@@ -283,7 +284,7 @@ Grapher.prototype.render = function () {
 /**
   * grapher.animate
   * ------------------
-  * 
+  *
   * Calls render in a requestAnimationFrame loop.
   */
 Grapher.prototype.animate = function () {
@@ -294,7 +295,7 @@ Grapher.prototype.animate = function () {
 /**
   * grapher.play
   * ------------------
-  * 
+  *
   * Starts the animate loop.
   */
 Grapher.prototype.play = function () {
@@ -305,7 +306,7 @@ Grapher.prototype.play = function () {
 /**
   * grapher.pause
   * ------------------
-  * 
+  *
   * Pauses the animate loop.
   */
 Grapher.prototype.pause = function () {
@@ -317,7 +318,7 @@ Grapher.prototype.pause = function () {
 /**
   * grapher.resize
   * ------------------
-  * 
+  *
   * Resize the grapher view.
   */
 Grapher.prototype.resize = function (width, height) {
@@ -328,7 +329,7 @@ Grapher.prototype.resize = function (width, height) {
 /**
   * grapher.width
   * ------------------
-  * 
+  *
   * Specify or retrieve the width.
   */
 Grapher.prototype.width = function (width) {
@@ -340,7 +341,7 @@ Grapher.prototype.width = function (width) {
  /**
   * grapher.height
   * ------------------
-  * 
+  *
   * Specify or retrieve the height.
   */
 Grapher.prototype.height = function (height) {
@@ -352,7 +353,7 @@ Grapher.prototype.height = function (height) {
 /**
   * grapher.transform
   * ------------------
-  * 
+  *
   * Set the scale and translate as an object.
   * If no arguments are passed in, returns the current transform object.
   */
@@ -368,7 +369,7 @@ Grapher.prototype.transform = function (transform) {
 /**
   * grapher.scale
   * ------------------
-  * 
+  *
   * Set the scale.
   * If no arguments are passed in, returns the current scale.
   */
@@ -382,7 +383,7 @@ Grapher.prototype.scale = function (scale) {
 /**
   * grapher.translate
   * ------------------
-  * 
+  *
   * Set the translate.
   * If no arguments are passed in, returns the current translate.
   */
@@ -396,20 +397,20 @@ Grapher.prototype.translate = function (translate) {
 /**
   * grapher.color
   * ------------------
-  * 
+  *
   * Set the default color of nodes and links.
   * If no arguments are passed in, returns the current default color.
   */
 Grapher.prototype.color = function (color) {
   if (u.isUndefined(color)) return this.props.color;
-  this.props.color = Color.parse(color);
+  this.props.color = color;
   return this;
 };
 
 /**
   * grapher.getDataPosition
   * ------------------
-  * 
+  *
   * Returns data space coordinates given display coordinates.
   * If a single argument passed in, function considers first argument an object with x and y props.
   */
@@ -424,7 +425,7 @@ Grapher.prototype.getDataPosition = function (x, y) {
 /**
   * grapher.getDisplayPosition
   * ------------------
-  * 
+  *
   * Returns display space coordinates given data coordinates.
   * If a single argument passed in, function considers first argument an object with x and y props.
   */
@@ -444,7 +445,7 @@ Grapher.prototype.getDisplayPosition = function (x, y) {
 /**
   * grapher._addToUpdateQueue
   * -------------------
-  * 
+  *
   * Add indices to the nodes or links update queue.
   *
   */
@@ -465,7 +466,7 @@ Grapher.prototype._addToUpdateQueue = function (type, indices) {
 /**
   * grapher._clearUpdateQueue
   * -------------------
-  * 
+  *
   * Clear the update queue.
   *
   */
@@ -480,7 +481,7 @@ Grapher.prototype._clearUpdateQueue = function () {
 /**
   * grapher._update
   * -------------------
-  * 
+  *
   * Update nodes and links in the update queue.
   *
   */
@@ -526,7 +527,7 @@ Grapher.prototype._updateLinkByIndex = function (i) { this._updateLink(this.link
 /**
   * grapher._findLinks
   * -------------------
-  * 
+  *
   * Search for links connected to the node indices provided.
   *
   * isLinked is a helper function that returns true if a link is
@@ -558,22 +559,18 @@ Grapher.prototype._findLinks = function (indices) {
 /**
   * grapher._findColor
   * -------------------
-  * 
+  *
   * Search for a color whether it's defined by palette index, string,
   * integer.
   */
 Grapher.prototype._findColor = function (c) {
-  var color = Color.parse(c);
-
-  // if color is still not set, use the default
-  if (u.isUndefined(color)) color = this.color();
-  return color;
+  return c || this.color();
 };
 
 /**
   * grapher._getWebGL
   * -------------------
-  * 
+  *
   *get webGL context if available
   *
   */
@@ -587,7 +584,7 @@ Grapher.prototype._getWebGL = function () {
 /**
   * grapher._onContextLost
   * ----------------------
-  * 
+  *
   * Handle context lost.
   *
   */
@@ -599,7 +596,7 @@ Grapher.prototype._onContextLost = function (e) {
 /**
   * grapher._onContextRestored
   * --------------------------
-  * 
+  *
   * Handle context restored.
   *
   */
